@@ -299,17 +299,18 @@ if user_input:
 
     with st.chat_message("assistant"):
         with st.spinner("Preparing your answer..."):
+            
             try:
-                
-client = Groq(api_key=st.secrets["GROQ_API_KEY"])
+    client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
-              response = client.chat.completions.create(
-              model="llama-3.3-70b-versatile",
-              messages=conversation
-              )
-              answer = response.choices[0].message.content
-              st.markdown(answer)
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=conversation
+    )
 
+    answer = response.choices[0].message.content
+    st.markdown(answer)
+    
             except Exception as error:
                 answer = (
                     "Sorry, I could not generate a response. "
