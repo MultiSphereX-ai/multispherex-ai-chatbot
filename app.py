@@ -4,7 +4,7 @@
 # ==========================================
 
 import streamlit as st
-import ollama
+from groq import Groq
 import json
 import os
 
@@ -300,13 +300,15 @@ if user_input:
     with st.chat_message("assistant"):
         with st.spinner("Preparing your answer..."):
             try:
-                response = ollama.chat(
-                    model="llama3.2:3b",
-                    messages=conversation
-                )
+                
+client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
-                answer = response.message.content
-                st.markdown(answer)
+              response = client.chat.completions.create(
+              model="llama-3.3-70b-versatile",
+              messages=conversation
+              )
+              answer = response.choices[0].message.content
+              st.markdown(answer)
 
             except Exception as error:
                 answer = (
