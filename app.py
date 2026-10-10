@@ -310,7 +310,12 @@ if user_input:
                 st.markdown(answer)
 
            
+            
             except Exception as error:
+                answer = (
+                    "Sorry, I could not generate a response. "
+                    "Please check the Groq API key and try again."
+                )
                 st.error(
                     f"Groq error: {type(error).__name__}: {error}"
                 )
