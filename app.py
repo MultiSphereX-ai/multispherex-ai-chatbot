@@ -309,12 +309,11 @@ if user_input:
                 answer = response.choices[0].message.content
                 st.markdown(answer)
 
+           
             except Exception as error:
-                answer = (
-                    "Sorry, I could not generate a response. "
-                    "Please check your Groq API key and connection, then try again."
+                st.error(
+                    f"Groq error: {type(error).__name__}: {error}"
                 )
-                st.error(answer)
 
     st.session_state.messages.append({
         "role": "assistant",
