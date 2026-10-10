@@ -297,22 +297,22 @@ if user_input:
         {"role": "system", "content": system_prompt}
     ] + st.session_state.messages
 
+   
     with st.chat_message("assistant"):
         with st.spinner("Preparing your answer..."):
-           
-try:
-    client = Groq(api_key=st.secrets["GROQ_API_KEY"])
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=conversation
-    )
-    answer = response.choices[0].message.content
-    st.markdown(answer)
-    
+            try:
+                client = Groq(api_key=st.secrets["GROQ_API_KEY"])
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=conversation
+                )
+                answer = response.choices[0].message.content
+                st.markdown(answer)
+
             except Exception as error:
                 answer = (
                     "Sorry, I could not generate a response. "
-                    "Please check that Ollama is running and try again."
+                    "Please check your Groq API key and connection, then try again."
                 )
                 st.error(answer)
 
